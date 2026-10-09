@@ -1,0 +1,272 @@
+[
+ {
+  "id": "doyle",
+  "name": "Doyle",
+  "area": "University City",
+  "addr": "8175 Regents Rd, San Diego 92122",
+  "phone": "858-552-1612",
+  "page": "doyle",
+  "lat": 32.86477,
+  "lon": -117.2216
+ },
+ {
+  "id": "nobel",
+  "name": "Nobel",
+  "area": "University City",
+  "addr": "8810 Judicial Dr, San Diego 92122",
+  "phone": "858-552-1626",
+  "page": "nobel",
+  "lat": 32.86763,
+  "lon": -117.19758
+ },
+ {
+  "id": "standley",
+  "name": "Standley",
+  "area": "University City",
+  "addr": "3585 Governor Dr, San Diego 92122",
+  "phone": "858-552-1652",
+  "page": "standley",
+  "lat": 32.85182,
+  "lon": -117.21015
+ },
+ {
+  "id": "lajolla",
+  "name": "La Jolla",
+  "area": "La Jolla Village",
+  "addr": "615 Prospect St, La Jolla 92037",
+  "phone": "858-552-1658",
+  "page": "lajolla",
+  "lat": 32.84327,
+  "lon": -117.27832
+ },
+ {
+  "id": "carmelvalley",
+  "name": "Carmel Valley",
+  "area": "Carmel Valley",
+  "addr": "3777 Townsgate Dr, San Diego 92130",
+  "phone": "858-552-1616",
+  "page": "carmelvalley",
+  "lat": 32.94911,
+  "lon": -117.23456
+ },
+ {
+  "id": "pacificbeach",
+  "name": "Pacific Beach",
+  "area": "Pacific Beach",
+  "addr": "1405 Diamond St, San Diego 92109",
+  "phone": "858-581-9927",
+  "page": "pacificb",
+  "lat": 32.80174,
+  "lon": -117.24523
+ },
+ {
+  "id": "nclairemont",
+  "name": "North Clairemont",
+  "area": "Clairemont",
+  "addr": "4421 Bannock Ave, San Diego 92117",
+  "phone": "858-581-9926",
+  "page": "nclairemont",
+  "lat": 32.83285,
+  "lon": -117.19671
+ },
+ {
+  "id": "oceanair",
+  "name": "Ocean Air",
+  "area": "Carmel Valley",
+  "addr": "4770 Fairport Way, San Diego 92130",
+  "phone": "858-552-1687",
+  "page": "oceanair",
+  "lat": 32.92599,
+  "lon": -117.21763
+ },
+ {
+  "id": "miramesa",
+  "name": "Mira Mesa",
+  "area": "Mira Mesa",
+  "addr": "8575 New Salem St, San Diego 92126",
+  "phone": "858-538-8122",
+  "page": "miramesa",
+  "lat": 32.91505,
+  "lon": -117.13938
+ },
+ {
+  "id": "hourglass",
+  "name": "Hourglass Field House",
+  "area": "Mira Mesa",
+  "addr": "10440 Black Mountain Rd, San Diego 92126",
+  "phone": "858-538-8153",
+  "page": "hourglass",
+  "lat": 32.90906,
+  "lon": -117.12428
+ },
+ {
+  "id": "lindavista",
+  "name": "Linda Vista",
+  "area": "Linda Vista",
+  "addr": "7064 Levant St, San Diego 92111",
+  "phone": "858-573-1392",
+  "page": "lindavista",
+  "lat": 32.791,
+  "lon": -117.16932
+ },
+ {
+  "id": "phr",
+  "name": "Pacific Highlands Ranch",
+  "area": "Pacific Highlands",
+  "addr": "5977 Village Center Loop Rd, San Diego 92130",
+  "phone": "858-538-8184",
+  "page": "pacifichighlandsranch",
+  "lat": 32.96145,
+  "lon": -117.18663
+ },
+ {
+  "id": "serramesa",
+  "name": "Serra Mesa",
+  "area": "Serra Mesa",
+  "addr": "9020 Village Glen Dr, San Diego 92123",
+  "phone": "858-573-1408",
+  "page": "serramesa",
+  "lat": 32.80502,
+  "lon": -117.13305
+ },
+ {
+  "id": "presidio",
+  "name": "Presidio",
+  "area": "Mission Hills",
+  "addr": "2811 Jackson St, San Diego 92110",
+  "phone": "619-692-4918",
+  "page": "presidio",
+  "lat": 32.75753,
+  "lon": -117.19583
+ },
+ {
+  "id": "allied",
+  "name": "Allied Gardens",
+  "area": "Allied Gardens",
+  "addr": "5155 Greenbrier Ave, San Diego 92120",
+  "phone": "619-235-1129",
+  "page": "allied",
+  "lat": 32.79579,
+  "lon": -117.07968
+ },
+ {
+  "id": "blackmtn",
+  "name": "Black Mountain",
+  "area": "Rancho Pe\u00f1asquitos",
+  "addr": "9353 Oviedo St, San Diego 92129",
+  "phone": "858-538-8128",
+  "page": "blkmtn",
+  "lat": 32.96932,
+  "lon": -117.12649
+ },
+ {
+  "id": "muni",
+  "name": "Municipal Gym",
+  "area": "Balboa Park",
+  "addr": "2111 Pan American Plaza, San Diego 92101",
+  "phone": "619-525-8262",
+  "page": "munigym",
+  "lat": 32.72755,
+  "lon": -117.15272
+ },
+ {
+  "id": "tierrasanta",
+  "name": "Tierrasanta",
+  "area": "Tierrasanta",
+  "addr": "11220 Clairemont Mesa Blvd, San Diego 92124",
+  "phone": "858-573-1393",
+  "page": "tierrasanta",
+  "lat": 32.82937,
+  "lon": -117.08706
+ },
+ {
+  "id": "scripps",
+  "name": "Scripps Ranch",
+  "area": "Scripps Ranch",
+  "addr": "11454 Blue Cypress Dr, San Diego 92131",
+  "phone": "858-538-8085",
+  "page": "scripps",
+  "lat": 32.92826,
+  "lon": -117.07852
+ },
+ {
+  "id": "goldenhill",
+  "name": "Golden Hill",
+  "area": "Golden Hill",
+  "addr": "2600 Golf Course Dr, San Diego 92102",
+  "phone": "619-235-1138",
+  "page": "goldenhill",
+  "lat": 32.71964,
+  "lon": -117.13818
+ },
+ {
+  "id": "midcity",
+  "name": "Mid-City Gym",
+  "area": "City Heights",
+  "addr": "4302 Landis St, San Diego 92105",
+  "phone": "619-516-3082",
+  "page": "midcity",
+  "lat": 32.74594,
+  "lon": -117.10191
+ },
+ {
+  "id": "cmr",
+  "name": "Carmel Mountain Ranch",
+  "area": "Sabre Springs",
+  "addr": "10152 Rancho Carmel Dr, San Diego 92128",
+  "phone": "858-538-8100",
+  "page": "carmelsabre",
+  "lat": 32.96611,
+  "lon": -117.09013
+ },
+ {
+  "id": "encanto",
+  "name": "Encanto",
+  "area": "Encanto",
+  "addr": "6508 Wunderlin Ave, San Diego 92114",
+  "phone": "619-527-3411",
+  "page": "encanto",
+  "lat": 32.71459,
+  "lon": -117.05782
+ },
+ {
+  "id": "mlk",
+  "name": "MLK Jr.",
+  "area": "Skyline",
+  "addr": "6401 Skyline Dr, San Diego 92114",
+  "phone": "619-527-3415",
+  "page": "mlking",
+  "lat": 32.70129,
+  "lon": -117.06073
+ },
+ {
+  "id": "rb",
+  "name": "Rancho Bernardo",
+  "area": "Rancho Bernardo",
+  "addr": "18448 W Bernardo Dr, San Diego 92127",
+  "phone": "858-538-8129",
+  "page": "rancho",
+  "lat": 33.04338,
+  "lon": -117.07592
+ },
+ {
+  "id": "southbay",
+  "name": "South Bay",
+  "area": "Nestor",
+  "addr": "1885 Coronado Ave, San Diego 92154",
+  "phone": "619-424-0470",
+  "page": "southbay",
+  "lat": 32.57645,
+  "lon": -117.09311
+ },
+ {
+  "id": "montgomery",
+  "name": "Montgomery-Waller",
+  "area": "Otay Mesa West",
+  "addr": "3020 Coronado Ave, San Diego 92154",
+  "phone": "619-424-0466",
+  "page": "montgomery",
+  "lat": 32.57753,
+  "lon": -117.06761
+ }
+]

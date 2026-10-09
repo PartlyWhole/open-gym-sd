@@ -1,0 +1,48 @@
+name: Update schedules
+
+on:
+  schedule:
+    # every day at 6:17am Pacific (13:17 UTC)
+    - cron: "17 13 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-schedules
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: scraper/requirements.txt
+
+      - name: Install tools
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils tesseract-ocr
+          pip install -r scraper/requirements.txt
+
+      - name: Read every center's schedule
+        run: python scraper/update.py
+
+      - name: Publish changes
+        run: |
+          git config user.name "schedule-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add schedules.json
+          if git diff --cached --quiet; then
+            echo "No changes"
+          else
+            git commit -m "Update schedules $(date -u +%Y-%m-%d)"
+            git push
+          fi

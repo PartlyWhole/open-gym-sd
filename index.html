@@ -1,0 +1,514 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Open Gym SD</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EEF2F6; --surface:#FFFFFF; --ink:#16202E; --muted:#596678; --line:#D3DAE3; --track:#E6EBF1;
+  --head:#1D3954; --head-ink:#F4F7FA; --paint:#F2B705;
+  --bb:#E0542B; --pb:#3A9636; --vb:#2E6BD8; --bad:#8C55D6; --open:#687384; --pp:#0E95A3;
+  --focus:#2E6BD8;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0E131A; --surface:#161D27; --ink:#E4E9F0; --muted:#98A4B4; --line:#283242; --track:#1D2531;
+    --head:#142A3F; --open:#8691A2; --focus:#7FB0FF; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0E131A; --surface:#161D27; --ink:#E4E9F0; --muted:#98A4B4; --line:#283242; --track:#1D2531;
+  --head:#142A3F; --open:#8691A2; --focus:#7FB0FF; color-scheme:dark;
+}
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);}
+html{scroll-padding-top:env(safe-area-inset-top,0px);}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Barlow,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:16px;line-height:1.45}
+h1,h2,h3,.cond{font-family:"Barlow Condensed","Arial Narrow",Barlow,system-ui,sans-serif}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--focus);outline-offset:2px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 18px}
+
+/* Header */
+header{background:var(--head);color:var(--head-ink);position:relative;overflow:hidden}
+header .wrap{padding-top:26px;padding-bottom:0;position:relative;z-index:1}
+header h1{font-size:clamp(2.2rem,6vw,3.4rem);font-weight:700;line-height:.95;margin:0;letter-spacing:.01em}
+header p{margin:8px 0 18px;max-width:52ch;opacity:.85}
+header svg.court{position:absolute;right:-60px;top:-40px;width:340px;height:340px;opacity:.16;z-index:0}
+nav.tabs{display:flex;gap:4px}
+nav.tabs button{background:transparent;border:0;color:var(--head-ink);opacity:.7;padding:10px 16px 12px;font-family:"Barlow Condensed",sans-serif;font-size:1.15rem;font-weight:600;cursor:pointer;border-bottom:4px solid transparent}
+nav.tabs button[aria-selected="true"]{opacity:1;border-bottom-color:var(--paint)}
+
+main{padding:20px 0 60px}
+section[hidden]{display:none}
+
+/* Day strip */
+.days{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}
+.day{flex:0 0 auto;min-width:64px;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:6px 10px;text-align:center;cursor:pointer}
+.day b{display:block;font-family:"Barlow Condensed",sans-serif;font-size:1.1rem;font-weight:600}
+.day span{font-size:.82rem;color:var(--muted)}
+.day[aria-pressed="true"]{background:var(--head);border-color:var(--head);color:#fff}
+.day[aria-pressed="true"] span{color:#d5e0ea}
+.day.sun{border-style:dashed}
+.day input{display:none}
+.pickdate{display:flex;align-items:center;gap:6px;flex:0 0 auto;font-size:.85rem;color:var(--muted);padding-left:6px}
+.pickdate input{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:6px 8px}
+
+.filters{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;margin:14px 0 6px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:4px 12px 4px 8px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;font-size:.92rem}
+.chip i{width:10px;height:10px;border-radius:3px;display:inline-block}
+.chip[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.ctl{display:flex;align-items:center;gap:6px;font-size:.92rem;color:var(--muted)}
+.ctl select{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:5px 8px;color:var(--ink)}
+.ctl input[type=checkbox]{accent-color:var(--head);width:16px;height:16px}
+
+.note{font-size:.88rem;color:var(--muted);margin:6px 0 14px}
+.now{background:var(--surface);border-left:4px solid var(--paint);border-radius:0 10px 10px 0;padding:12px 16px;margin:10px 0 16px}
+.now h2{margin:0 0 4px;font-size:1.3rem;font-weight:600}
+.now ul{margin:0;padding:0;list-style:none;display:grid;gap:3px}
+.now li{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.dot{width:9px;height:9px;border-radius:2px;display:inline-block;flex:0 0 auto;transform:translateY(-1px)}
+
+/* Timeline */
+.tl-scroll{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:12px}
+.tl{min-width:760px;position:relative}
+.tl-row{display:grid;grid-template-columns:190px 1fr;border-top:1px solid var(--line)}
+.tl-row:first-child{border-top:0}
+.tl-name{position:sticky;left:0;background:var(--surface);padding:8px 10px 8px 12px;z-index:2;border-right:1px solid var(--line);display:flex;gap:6px;align-items:flex-start}
+.tl-name .nm{font-weight:600;line-height:1.15;cursor:pointer;background:none;border:0;padding:0;text-align:left}
+.tl-name .nm:hover{text-decoration:underline}
+.tl-name small{display:block;color:var(--muted);font-size:.78rem;font-weight:400}
+.star{background:none;border:0;cursor:pointer;font-size:1.05rem;line-height:1;padding:1px;color:var(--muted)}
+.star[aria-pressed="true"]{color:var(--paint)}
+.track{position:relative;margin:6px 8px;background:
+  repeating-linear-gradient(to right, transparent 0, transparent calc(100%/15 - 1px), var(--line) calc(100%/15 - 1px), var(--line) calc(100%/15));
+  border-radius:6px}
+.track::before{content:"";position:absolute;inset:0;background:var(--track);opacity:.55;border-radius:6px;z-index:0}
+.bar{position:absolute;height:24px;border-radius:5px;color:#fff;font-size:.78rem;font-weight:600;padding:3px 6px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;z-index:1;line-height:18px}
+.bar.past{opacity:.38}
+.nowline{position:absolute;top:-6px;bottom:-6px;width:2px;background:var(--paint);z-index:3;border-radius:2px}
+.tl-head{display:grid;grid-template-columns:190px 1fr;position:sticky;top:0;background:var(--surface);z-index:4;border-bottom:1px solid var(--line)}
+.tl-head div:first-child{position:sticky;left:0;background:var(--surface);border-right:1px solid var(--line)}
+.hours{position:relative;height:26px;margin:0 8px}
+.hours span{position:absolute;top:5px;font-size:.75rem;color:var(--muted);transform:translateX(-50%)}
+.none{margin:14px 2px 0;font-size:.92rem;color:var(--muted)}
+.none b{color:var(--ink);font-weight:600}
+.empty{padding:28px;text-align:center;color:var(--muted)}
+
+/* Gyms */
+.search{width:100%;max-width:420px;border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:9px 12px;margin-bottom:14px}
+.gyms{display:grid;gap:10px}
+.gym{background:var(--surface);border:1px solid var(--line);border-radius:12px}
+.gym summary{list-style:none;cursor:pointer;padding:12px 14px;display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center}
+.gym summary::-webkit-details-marker{display:none}
+.gym h3{margin:0;font-size:1.3rem;font-weight:600;line-height:1.1}
+.gym .sub{color:var(--muted);font-size:.88rem}
+.gym .mi{font-family:"Barlow Condensed",sans-serif;font-size:1.25rem;font-weight:600;text-align:right;white-space:nowrap}
+.gym .mi small{display:block;font-family:Barlow,sans-serif;font-size:.75rem;color:var(--muted);font-weight:400}
+.gym[open] summary{border-bottom:1px solid var(--line)}
+.gbody{padding:12px 14px 16px;display:grid;gap:14px;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr)}
+@media (max-width:760px){.gbody{grid-template-columns:1fr}}
+.week{width:100%;border-collapse:collapse;font-size:.9rem}
+.week th{text-align:left;font-weight:600;padding:5px 8px 5px 0;vertical-align:top;width:44px;font-family:"Barlow Condensed",sans-serif;font-size:1rem}
+.week td{padding:5px 0;border-top:1px solid var(--line);vertical-align:top}
+.week tr:first-child td,.week tr:first-child th{border-top:0}
+.week tr.today th{color:var(--bb)}
+.ses{display:inline-flex;align-items:center;gap:5px;margin:0 10px 2px 0;white-space:nowrap}
+.side{display:grid;gap:10px;align-content:start}
+.links{display:flex;flex-wrap:wrap;gap:8px}
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:6px 12px;cursor:pointer;text-decoration:none;font-size:.92rem;display:inline-flex;align-items:center;gap:6px}
+.btn.primary{background:var(--head);border-color:var(--head);color:#fff}
+.warn{font-size:.88rem;background:color-mix(in srgb,var(--paint) 18%,transparent);border-radius:8px;padding:8px 10px}
+textarea{width:100%;min-height:70px;border:1px solid var(--line);background:var(--bg);border-radius:8px;padding:8px;resize:vertical}
+label.lbl{font-size:.85rem;color:var(--muted);display:block;margin-bottom:3px}
+.meta{font-size:.88rem;color:var(--muted)}
+
+/* Log */
+.stats{display:flex;flex-wrap:wrap;gap:28px;margin:4px 0 18px}
+.stat b{display:block;font-family:"Barlow Condensed",sans-serif;font-size:2.4rem;line-height:1;font-weight:700}
+.stat span{color:var(--muted);font-size:.9rem}
+.loglist{list-style:none;margin:0;padding:0;background:var(--surface);border:1px solid var(--line);border-radius:12px}
+.loglist li{display:grid;grid-template-columns:92px 1fr auto;gap:10px;padding:10px 14px;border-top:1px solid var(--line);align-items:start}
+.loglist li:first-child{border-top:0}
+.loglist .d{font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:1.05rem}
+.del{background:none;border:0;color:var(--muted);cursor:pointer;font-size:.85rem;text-decoration:underline}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.row h2{margin:0;font-size:1.6rem;font-weight:600}
+
+dialog{border:1px solid var(--line);border-radius:14px;background:var(--surface);color:var(--ink);padding:18px;width:min(420px,92vw)}
+dialog::backdrop{background:rgba(10,16,24,.5)}
+dialog h2{margin:0 0 12px;font-size:1.5rem;font-weight:600}
+dialog .f{margin-bottom:10px}
+dialog select,dialog input{width:100%;border:1px solid var(--line);background:var(--bg);border-radius:8px;padding:7px 9px}
+dialog .acts{display:flex;justify-content:flex-end;gap:8px;margin-top:14px}
+footer{font-size:.82rem;color:var(--muted);padding:0 0 30px}
+@media (prefers-reduced-motion: no-preference){ .bar{transition:opacity .2s} }
+@media (max-width:600px){
+  .tl-row,.tl-head{grid-template-columns:132px 1fr}
+  .tl{min-width:680px}
+}
+
+.none p{margin:6px 0 0}
+.lnk{background:none;border:0;padding:0;color:inherit;text-decoration:underline;text-decoration-color:var(--line);text-underline-offset:2px;cursor:pointer;font:inherit}
+.lnk:hover{text-decoration-color:currentColor}
+.flag{display:inline-block;margin-top:3px;font-size:.72rem;font-weight:600;color:var(--muted);border:1px solid var(--line);border-radius:4px;padding:0 5px;line-height:1.5}
+.week th small.dn{display:inline;margin-left:4px;font-family:Barlow,sans-serif;font-weight:400;color:var(--muted);font-size:.8rem}
+footer p{margin:0 0 6px}
+
+.zipbar{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin:6px 0 16px}
+.zipbar label{font-family:"Barlow Condensed",sans-serif;font-weight:600;font-size:1.1rem}
+.zipbar input{width:6.5em;border:1px solid var(--line);background:var(--surface);border-radius:8px;padding:7px 10px;font-size:1rem;letter-spacing:.04em}
+.ctl select:disabled{opacity:.5}
+</style>
+</head>
+<body>
+<header>
+  <svg class="court" viewBox="0 0 200 200" aria-hidden="true"><g fill="none" stroke="#fff" stroke-width="3"><circle cx="100" cy="100" r="30"/><circle cx="100" cy="100" r="90"/><line x1="0" y1="100" x2="200" y2="100"/><rect x="70" y="100" width="60" height="100"/></g></svg>
+  <div class="wrap">
+    <h1>Open gym<br>San Diego</h1>
+    <p>Free drop-in indoor courts at City of San Diego rec centers. Enter your ZIP code, pick a day, and see who's open near you. Keep a log of where you've played.</p>
+    <nav class="tabs" role="tablist">
+      <button role="tab" aria-selected="true" data-tab="sched">Schedule</button>
+      <button role="tab" aria-selected="false" data-tab="gyms">Gyms</button>
+      <button role="tab" aria-selected="false" data-tab="log">My log</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+  <div class="zipbar">
+    <label for="zip">Your ZIP code</label>
+    <input id="zip" inputmode="numeric" autocomplete="postal-code" maxlength="5" placeholder="e.g. 92101">
+    <span id="zipmsg" class="meta"></span>
+  </div>
+  <section id="sched">
+    <div class="days" id="days"></div>
+    <div class="filters">
+      <div class="chips" id="chips"></div>
+      <label class="ctl">Within
+        <select id="dist"><option value="3">3 mi</option><option value="5">5 mi</option><option value="10">10 mi</option><option value="15">15 mi</option><option value="999" selected>any distance</option></select>
+      </label>
+      <label class="ctl"><input type="checkbox" id="favonly"> Starred only</label>
+    </div>
+    <p class="note" id="schednote"></p>
+    <div id="nowbox"></div>
+    <div class="tl-scroll"><div class="tl" id="tl"></div></div>
+    <div class="none" id="none"></div>
+  </section>
+
+  <section id="gyms" hidden>
+    <input class="search" id="q" type="search" placeholder="Search by name or neighborhood">
+    <div class="gyms" id="gymlist"></div>
+  </section>
+
+  <section id="log" hidden>
+    <div class="row"><h2>Where I've played</h2><button class="btn primary" id="addvisit">Log a visit</button></div>
+    <div class="stats" id="stats"></div>
+    <div id="loglist"></div>
+  </section>
+</main>
+
+<footer class="wrap"><p id="updated"></p><p>Hours are read automatically from each center’s posted schedule and checked daily; permits and rentals take priority over open play, so confirm with the center before you go. Your stars, notes and visits are saved in this browser only.</p></footer>
+
+<dialog id="dlg">
+  <form method="dialog" id="vform">
+    <h2>Log a visit</h2>
+    <div class="f"><label class="lbl" for="vgym">Gym</label><select id="vgym"></select></div>
+    <div class="f"><label class="lbl" for="vdate">Date</label><input type="date" id="vdate" required></div>
+    <div class="f"><label class="lbl" for="vsport">Played</label><select id="vsport"></select></div>
+    <div class="f"><label class="lbl" for="vnote">Note</label><input id="vnote" placeholder="Crowd, run quality, anything to remember"></div>
+    <div class="acts"><button class="btn" value="cancel" type="button" id="vcancel">Cancel</button><button class="btn primary" value="save" id="vsave">Save visit</button></div>
+  </form>
+</dialog>
+
+<script>
+const SP={
+  bb:{n:'Basketball',c:'var(--bb)'},
+  pb:{n:'Pickleball',c:'var(--pb)'},
+  vb:{n:'Volleyball',c:'var(--vb)'},
+  bad:{n:'Badminton',c:'var(--bad)'},
+  open:{n:'Open gym',c:'var(--open)'},
+  pp:{n:'Ping pong',c:'var(--pp)'}
+};
+const PAGE='https://www.sandiego.gov/park-and-recreation/centers/recctr/';
+let GYMS=[];
+let GENERATED=null;
+// San Diego County ZIP code centroids (US Census 2024 ZCTA gazetteer)
+const ZIPS={"91901":[32.8136,-116.727],"91902":[32.6732,-117.0061],"91905":[32.6786,-116.3075],"91906":[32.6581,-116.476],"91910":[32.6371,-117.0618],"91911":[32.6074,-117.0504],"91913":[32.6229,-116.9869],"91914":[32.666,-116.9542],"91915":[32.6236,-116.9498],"91916":[32.911,-116.632],"91917":[32.642,-116.7538],"91931":[32.8376,-116.5803],"91932":[32.5654,-117.1146],"91934":[32.649,-116.1526],"91935":[32.6943,-116.7755],"91941":[32.7593,-116.9971],"91942":[32.7773,-117.0213],"91945":[32.7331,-117.0341],"91948":[32.865,-116.473],"91950":[32.6691,-117.0935],"91962":[32.8468,-116.5198],"91963":[32.648,-116.5964],"91977":[32.7262,-116.9943],"91978":[32.6989,-116.931],"91980":[32.5852,-116.6325],"92003":[33.2853,-117.1978],"92004":[33.1977,-116.1675],"92007":[33.023,-117.2756],"92008":[33.1425,-117.3134],"92009":[33.0953,-117.2458],"92010":[33.1654,-117.2814],"92011":[33.1068,-117.2963],"92014":[32.9632,-117.2504],"92019":[32.7788,-116.8714],"92020":[32.7956,-116.9698],"92021":[32.8357,-116.8746],"92024":[33.0569,-117.2576],"92025":[33.0778,-117.0331],"92026":[33.211,-117.1248],"92027":[33.1316,-116.9769],"92028":[33.3865,-117.225],"92029":[33.0855,-117.124],"92036":[33.0324,-116.2652],"92037":[32.8546,-117.2518],"92040":[32.9089,-116.892],"92054":[33.1931,-117.3597],"92055":[33.4112,-117.4333],"92056":[33.1996,-117.2988],"92057":[33.2546,-117.2833],"92058":[33.264,-117.3448],"92059":[33.3828,-117.052],"92060":[33.3504,-116.8644],"92061":[33.3004,-116.9305],"92064":[32.9844,-117.0135],"92065":[33.0404,-116.8301],"92066":[33.2154,-116.5358],"92067":[33.0209,-117.1903],"92069":[33.1753,-117.1576],"92070":[33.1886,-116.7433],"92071":[32.8507,-116.9953],"92075":[32.9972,-117.2606],"92078":[33.1171,-117.1808],"92081":[33.1645,-117.2405],"92082":[33.2518,-117.0028],"92083":[33.1981,-117.2484],"92084":[33.2273,-117.2001],"92086":[33.314,-116.6295],"92091":[33.0524,-117.1828],"92092":[32.8755,-117.2361],"92093":[32.8821,-117.2371],"92096":[33.1282,-117.1562],"92101":[32.7178,-117.1721],"92102":[32.716,-117.1175],"92103":[32.7478,-117.1673],"92104":[32.7419,-117.1278],"92105":[32.7404,-117.0899],"92106":[32.7099,-117.2379],"92107":[32.7391,-117.2454],"92108":[32.774,-117.1427],"92109":[32.7868,-117.2342],"92110":[32.7652,-117.2004],"92111":[32.8065,-117.169],"92113":[32.6946,-117.1198],"92114":[32.7078,-117.0553],"92115":[32.7615,-117.0719],"92116":[32.7648,-117.1231],"92117":[32.8249,-117.1997],"92118":[32.6988,-117.2091],"92119":[32.8179,-117.032],"92120":[32.794,-117.0738],"92121":[32.8971,-117.2016],"92122":[32.8568,-117.2102],"92123":[32.8096,-117.1342],"92124":[32.8283,-117.0853],"92126":[32.912,-117.1434],"92127":[33.0188,-117.1241],"92128":[32.997,-117.073],"92129":[32.9635,-117.1262],"92130":[32.9476,-117.2058],"92131":[32.8997,-117.0473],"92132":[32.7137,-117.172],"92134":[32.7251,-117.1454],"92135":[32.695,-117.1944],"92136":[32.683,-117.123],"92139":[32.68,-117.0489],"92140":[32.7413,-117.1977],"92145":[32.8685,-117.1432],"92147":[32.7247,-117.2188],"92154":[32.5791,-116.9665],"92155":[32.6581,-117.1569],"92161":[32.8741,-117.2316],"92173":[32.5556,-117.0512],"92179":[32.5839,-116.9335],"92182":[32.775,-117.0742]};
+
+// ---------- storage ----------
+const KEY='opengym-sd:v1';
+let state={favs:[],visits:[],notes:{},zip:''};
+try{const raw=localStorage.getItem(KEY);if(raw){const s=JSON.parse(raw);state={favs:s.favs||[],visits:s.visits||[],notes:s.notes||{},zip:s.zip||''}}}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}}
+const isFav=id=>state.favs.includes(id);
+function toggleFav(id){state.favs=isFav(id)?state.favs.filter(x=>x!==id):[...state.favs,id];save();renderAll()}
+
+// ---------- helpers ----------
+const H0=7,H1=22,SPAN=(H1-H0)*60;
+const t2m=s=>{const[h,m]=s.split(':').map(Number);return h*60+m};
+function fmt(s){const m=t2m(s);let h=Math.floor(m/60);const mm=m%60,ap=h>=12?'p':'a';h=h%12||12;return h+(mm?':'+String(mm).padStart(2,'0'):'')+ap}
+const iso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+const fromIso=s=>{const[y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d)};
+const DOW=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+const DOWL=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const MON=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const MONL=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const label=s=>SP[s[0]].n+(s[3]?', '+s[3].charAt(0).toLowerCase()+s[3].slice(1):'');
+const mapUrl=a=>'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(a);
+const gymById=id=>GYMS.find(g=>g.id===id);
+function miles(a,b,c,d){const R=3958.8,r=x=>x*Math.PI/180;const h=Math.sin(r(c-a)/2)**2+Math.cos(r(a))*Math.cos(r(c))*Math.sin(r(d-b)/2)**2;return 2*R*Math.asin(Math.sqrt(h))}
+const hasZip=()=>!!ZIPS[state.zip];
+function applyZip(){
+  const z=ZIPS[state.zip];
+  for(const g of GYMS)g.mi=z?Math.round(miles(z[0],z[1],g.lat,g.lon)*10)/10:null;
+  const dist=document.getElementById('dist');dist.disabled=!z;if(!z)dist.value='999';
+}
+const byDist=(a,b)=>(isFav(b.id)-isFav(a.id))||(hasZip()?a.mi-b.mi:a.name.localeCompare(b.name));
+const miTxt=g=>g.mi==null?'':g.mi+' mi';
+const toArr=ss=>(ss||[]).map(s=>[s.s,s.a,s.b,s.l||null]).filter(s=>SP[s[0]]);
+function monthName(ym){const[y,m]=ym.split('-').map(Number);return MONL[m-1]+' '+y}
+function fmtDate(s){const d=fromIso(s);return `${MON[d.getMonth()]} ${d.getDate()}${d.getFullYear()!==today.getFullYear()?', '+d.getFullYear():''}`}
+
+/** Sessions for a gym on a date. known=false means no posted schedule covers that date. */
+function sessionsFor(g,d){
+  if(g.kind==='dated'){
+    const k=iso(d);
+    if(g.days&&Object.prototype.hasOwnProperty.call(g.days,k))return{known:true,ss:g.days[k]};
+    if(g.covered_until&&k<=g.covered_until)return{known:true,ss:[]};
+    return{known:false,ss:[]};
+  }
+  if(g.kind==='weekly')return{known:true,ss:g.week[d.getDay()]||[]};
+  return{known:false,ss:[]};
+}
+function warnFor(g){
+  if(g.status==='error')return `The latest posted schedule couldn’t be read automatically${g.error_since?' (since '+fmtDate(g.error_since)+')':''}, so this shows the last version that could. Check the posted schedule before going.`;
+  if(g.kind==='none')return 'This center doesn’t post open play times. Call to ask.';
+  if(g.status==='stale'&&g.months)return `The center hasn’t posted a schedule past ${monthName(g.months[g.months.length-1])} yet.`;
+  if(g.kind==='weekly')return 'This center posts a weekly schedule without dates, so holiday closures may not be listed.';
+  return '';
+}
+
+// ---------- schedule view ----------
+const today=new Date();today.setHours(0,0,0,0);
+let selDate=new Date(today);
+let sports=new Set();
+
+function renderDays(){
+  const el=document.getElementById('days');let h='';
+  for(let i=0;i<7;i++){
+    const d=new Date(today);d.setDate(d.getDate()+i);
+    const on=iso(d)===iso(selDate);
+    h+=`<button class="day${d.getDay()===0?' sun':''}" aria-pressed="${on}" data-d="${iso(d)}"><b>${i===0?'Today':DOW[d.getDay()]}</b><span>${MON[d.getMonth()]} ${d.getDate()}</span></button>`;
+  }
+  h+=`<label class="pickdate">or <input type="date" id="anydate" value="${iso(selDate)}" aria-label="Pick any date"></label>`;
+  el.innerHTML=h;
+  el.querySelectorAll('.day').forEach(b=>b.onclick=()=>{selDate=fromIso(b.dataset.d);renderSched()});
+  document.getElementById('anydate').onchange=e=>{if(e.target.value){selDate=fromIso(e.target.value);renderSched()}};
+}
+function renderChips(){
+  const el=document.getElementById('chips');
+  el.innerHTML=Object.entries(SP).map(([k,v])=>`<button class="chip" aria-pressed="${sports.has(k)}" data-k="${k}"><i style="background:${v.c}"></i>${v.n}</button>`).join('');
+  el.querySelectorAll('.chip').forEach(b=>b.onclick=()=>{const k=b.dataset.k;sports.has(k)?sports.delete(k):sports.add(k);renderChips();renderSched(false)});
+}
+function filtered(ss){
+  if(sports.size)ss=ss.filter(s=>sports.has(s[0])||(s[0]==='open'&&!sports.has('pp')));
+  return ss;
+}
+function lanes(ss){
+  const sorted=[...ss].sort((a,b)=>t2m(a[1])-t2m(b[1]));const ends=[];const out=[];
+  for(const s of sorted){let i=ends.findIndex(e=>e<=t2m(s[1]));if(i<0){i=ends.length;ends.push(0)}ends[i]=t2m(s[2]);out.push([s,i])}
+  return{items:out,n:Math.max(1,ends.length)};
+}
+function renderSched(rebuildDays=true){
+  if(rebuildDays)renderDays();
+  const maxMi=+document.getElementById('dist').value;
+  const favOnly=document.getElementById('favonly').checked;
+  const isToday=iso(selDate)===iso(today);
+  const now=new Date();const nowM=now.getHours()*60+now.getMinutes();
+  const pool=GYMS.filter(g=>(!hasZip()||g.mi<=maxMi)&&(!favOnly||isFav(g.id))).sort(byDist);
+  const rows=[],none=[],unknown=[];
+  for(const g of pool){
+    const r=sessionsFor(g,selDate);
+    if(!r.known){unknown.push(g);continue}
+    const ss=filtered(r.ss);
+    (ss.length?rows:none).push([g,ss]);
+  }
+
+  document.getElementById('schednote').textContent=`${DOWL[selDate.getDay()]}, ${MON[selDate.getMonth()]} ${selDate.getDate()}. ${rows.length} gym${rows.length===1?'':'s'} with open play.`+(sports.size?' Open gym sessions are included with any sport filter.':'');
+
+  const nb=document.getElementById('nowbox');
+  if(isToday){
+    const live=[],soon=[];
+    for(const[g,ss]of rows)for(const s of ss){const a=t2m(s[1]),b=t2m(s[2]);if(a<=nowM&&nowM<b)live.push([g,s]);else if(a>nowM&&a-nowM<=120)soon.push([g,s])}
+    soon.sort((x,y)=>t2m(x[1][1])-t2m(y[1][1]));
+    const li=([g,s],txt)=>`<li><i class="dot" style="background:${SP[s[0]].c}"></i><b>${esc(g.name)}</b> ${esc(label(s))}, ${txt} <span class="meta">${miTxt(g)}</span></li>`;
+    nb.innerHTML=`<div class="now"><h2>${live.length?'Open right now':'Nothing open right now'}</h2>`+
+      (live.length?`<ul>${live.slice(0,6).map(x=>li(x,'until '+fmt(x[1][2]))).join('')}</ul>`:'')+
+      (soon.length?`<p class="meta" style="margin:8px 0 3px">Starting in the next two hours</p><ul>${soon.slice(0,5).map(x=>li(x,'starts '+fmt(x[1][1]))).join('')}</ul>`:(live.length?'':'<p class="meta" style="margin:0">Nothing else starts in the next two hours. Try another day.</p>'))+`</div>`;
+  } else nb.innerHTML='';
+
+  const tl=document.getElementById('tl');
+  if(!rows.length){tl.innerHTML=`<div class="empty">No open play matches these filters on this day. Try widening the distance, clearing sport filters, or picking another day.</div>`}
+  else{
+    let hrs='';for(let h=H0+1;h<H1;h++){hrs+=`<span style="left:${(h-H0)/(H1-H0)*100}%">${h%12||12}${h<12?'a':'p'}</span>`}
+    let h=`<div class="tl-head"><div></div><div class="hours">${hrs}</div></div>`;
+    for(const[g,ss]of rows){
+      const L=lanes(ss);const ht=L.n*28;
+      let bars='';
+      for(const[s,i]of L.items){
+        const a=t2m(s[1]),b=t2m(s[2]);
+        const left=Math.max(0,(a-H0*60)/SPAN*100),w=Math.min(100-left,(b-a)/SPAN*100);
+        const past=isToday&&b<=nowM;
+        bars+=`<div class="bar${past?' past':''}" style="left:${left}%;width:${w}%;top:${2+i*28}px;background:${SP[s[0]].c}" title="${esc(label(s))}: ${fmt(s[1])} to ${fmt(s[2])}">${esc(label(s))} ${fmt(s[1])}–${fmt(s[2])}</div>`;
+      }
+      if(isToday&&nowM>H0*60&&nowM<H1*60)bars+=`<div class="nowline" style="left:${(nowM-H0*60)/SPAN*100}%"></div>`;
+      const flag=(g.status==='error'||g.kind==='weekly')?`<span class="flag" title="${esc(warnFor(g))}">${g.status==='error'?'May be outdated':'Weekly schedule'}</span>`:'';
+      h+=`<div class="tl-row"><div class="tl-name"><button class="star" aria-pressed="${isFav(g.id)}" aria-label="Star ${esc(g.name)}" data-fav="${g.id}">${isFav(g.id)?'★':'☆'}</button><div><button class="nm" data-open="${g.id}">${esc(g.name)}</button><small>${hasZip()?miTxt(g)+', ':''}${esc(g.area)}</small>${flag}</div></div><div class="track" style="height:${ht+4}px">${bars}</div></div>`;
+    }
+    tl.innerHTML=h;
+  }
+  tl.querySelectorAll('[data-fav]').forEach(b=>b.onclick=()=>toggleFav(b.dataset.fav));
+  tl.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>openGym(b.dataset.open));
+  const link=g=>`<button class="lnk" data-open="${g.id}">${esc(g.name)}</button>`;
+  const nEl=document.getElementById('none');
+  nEl.innerHTML=(none.length?`<p><b>No open play this day:</b> ${none.map(([g])=>link(g)).join(', ')}.</p>`:'')+
+    (unknown.length?`<p><b>No schedule posted for this date yet:</b> ${unknown.map(link).join(', ')}.</p>`:'');
+  nEl.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>openGym(b.dataset.open));
+}
+
+// ---------- gyms view ----------
+function visitsFor(id){return state.visits.filter(v=>v.gym===id).sort((a,b)=>b.date.localeCompare(a.date))}
+function sportsAt(g){
+  const all=g.kind==='weekly'?Object.values(g.week):g.kind==='dated'?Object.values(g.days||{}):[];
+  return [...new Set(all.flat().map(s=>s[0]))];
+}
+function scheduleTable(g){
+  if(g.kind==='weekly'){
+    return `<p class="meta" style="margin:0 0 6px">Every week</p><table class="week">`+[1,2,3,4,5,6,0].map(d=>{const ss=g.week[d]||[];return `<tr class="${d===today.getDay()?'today':''}"><th>${DOW[d]}</th><td>${cellHtml(ss)}</td></tr>`}).join('')+`</table>`;
+  }
+  if(g.kind==='dated'){
+    let rows='';
+    for(let i=0;i<7;i++){const d=new Date(today);d.setDate(d.getDate()+i);const r=sessionsFor(g,d);
+      rows+=`<tr class="${i===0?'today':''}"><th>${DOW[d.getDay()]}<small class="dn">${d.getDate()}</small></th><td>${r.known?cellHtml(r.ss):'<span class="meta">Not posted yet</span>'}</td></tr>`}
+    return `<p class="meta" style="margin:0 0 6px">Next 7 days</p><table class="week">${rows}</table>`;
+  }
+  return '';
+}
+function cellHtml(ss){return ss.length?ss.map(s=>`<span class="ses"><i class="dot" style="background:${SP[s[0]].c}"></i>${esc(label(s))} ${fmt(s[1])}–${fmt(s[2])}</span>`).join(''):'<span class="meta">None</span>'}
+function renderGyms(){
+  const q=document.getElementById('q').value.trim().toLowerCase();
+  const list=GYMS.filter(g=>!q||(g.name+' '+g.area+' '+g.addr).toLowerCase().includes(q)).sort(byDist);
+  const el=document.getElementById('gymlist');
+  const openIds=new Set([...el.querySelectorAll('details[open]')].map(d=>d.dataset.id));
+  el.innerHTML=list.map(g=>{
+    const vs=visitsFor(g.id);
+    const sp=sportsAt(g);
+    const warn=warnFor(g);
+    return `<details class="gym" data-id="${g.id}" ${openIds.has(g.id)?'open':''}>
+      <summary><button class="star" aria-pressed="${isFav(g.id)}" aria-label="Star ${esc(g.name)}" data-fav="${g.id}">${isFav(g.id)?'★':'☆'}</button>
+        <div><h3>${esc(g.name)}</h3><div class="sub">${esc(g.area)}. ${sp.map(k=>SP[k].n).join(', ')||'Call for times'}${vs.length?`. Played ${vs.length}×, last ${fmtDate(vs[0].date)}`:''}</div></div>
+        ${hasZip()?`<div class="mi">${g.mi} mi<small>from ${state.zip}</small></div>`:'<div></div>'}</summary>
+      <div class="gbody">
+        <div>${scheduleTable(g)}</div>
+        <div class="side">
+          ${warn?`<div class="warn">${esc(warn)}</div>`:''}
+          <div class="meta">${esc(g.addr)}<br><a href="tel:${g.phone}">${g.phone}</a></div>
+          <div class="links"><a class="btn" href="${g.source||g.pageUrl}" target="_blank" rel="noopener">Posted schedule</a><a class="btn" href="${g.pageUrl}" target="_blank" rel="noopener">Center page</a><a class="btn" href="${mapUrl(g.addr)}" target="_blank" rel="noopener">Directions</a><button class="btn primary" data-log="${g.id}">Log a visit</button></div>
+          <div><label class="lbl" for="n-${g.id}">My notes</label><textarea id="n-${g.id}" data-note="${g.id}" placeholder="Parking, best times, who runs pickup…">${esc(state.notes[g.id]||'')}</textarea></div>
+        </div>
+      </div></details>`;
+  }).join('')||'<div class="empty">No gyms match that search.</div>';
+  el.querySelectorAll('[data-fav]').forEach(b=>b.onclick=e=>{e.preventDefault();toggleFav(b.dataset.fav)});
+  el.querySelectorAll('[data-log]').forEach(b=>b.onclick=()=>openLog(b.dataset.log));
+  el.querySelectorAll('[data-note]').forEach(t=>t.oninput=()=>{state.notes[t.dataset.note]=t.value;save()});
+}
+function openGym(id){switchTab('gyms');document.getElementById('q').value='';renderGyms();const d=document.querySelector(`details[data-id="${id}"]`);if(d){d.open=true;d.scrollIntoView({block:'start',behavior:'smooth'})}}
+
+// ---------- log view ----------
+function renderLog(){
+  const vs=[...state.visits].sort((a,b)=>b.date.localeCompare(a.date));
+  const ym=iso(today).slice(0,7);
+  const counts={};vs.forEach(v=>counts[v.gym]=(counts[v.gym]||0)+1);
+  const top=Object.entries(counts).sort((a,b)=>b[1]-a[1])[0];
+  document.getElementById('stats').innerHTML=vs.length?`<div class="stat"><b>${vs.length}</b><span>visits logged</span></div><div class="stat"><b>${vs.filter(v=>v.date.startsWith(ym)).length}</b><span>this month</span></div><div class="stat"><b>${Object.keys(counts).length}</b><span>different gyms</span></div>${top?`<div class="stat"><b>${esc(gymById(top[0])?.name||'')}</b><span>most visited</span></div>`:''}`:'';
+  const el=document.getElementById('loglist');
+  if(!vs.length){el.innerHTML='<div class="empty" style="background:var(--surface);border:1px solid var(--line);border-radius:12px">No visits yet. Log one after you play to keep a record of where you’ve been and how the run was.</div>';return}
+  el.innerHTML='<ul class="loglist">'+vs.map(v=>{const g=gymById(v.gym);return `<li><span class="d">${fmtDate(v.date)}</span><div><b>${esc(g?g.name:v.gym)}</b> <span class="meta">${esc(SP[v.sport]?.n||'')}</span>${v.note?`<div class="meta">${esc(v.note)}</div>`:''}</div><button class="del" data-del="${v.id}">Delete</button></li>`}).join('')+'</ul>';
+  el.querySelectorAll('[data-del]').forEach(b=>b.onclick=()=>{state.visits=state.visits.filter(v=>v.id!==b.dataset.del);save();renderAll()});
+}
+
+// ---------- dialog ----------
+const dlg=document.getElementById('dlg');
+function openLog(id){
+  if(id)document.getElementById('vgym').value=id;
+  document.getElementById('vdate').value=iso(new Date());
+  document.getElementById('vnote').value='';
+  const g=gymById(document.getElementById('vgym').value);
+  const ss=g?sessionsFor(g,new Date()).ss:[];document.getElementById('vsport').value=ss[0]?.[0]||'bb';
+  if(dlg.showModal)dlg.showModal();else dlg.setAttribute('open','');
+}
+document.getElementById('addvisit').onclick=()=>openLog();
+document.getElementById('vcancel').onclick=()=>dlg.close();
+document.getElementById('vform').onsubmit=e=>{
+  e.preventDefault();
+  const date=document.getElementById('vdate').value;if(!date)return;
+  state.visits.push({id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),gym:document.getElementById('vgym').value,date,sport:document.getElementById('vsport').value,note:document.getElementById('vnote').value.trim()});
+  save();dlg.close();renderAll();
+};
+
+// ---------- tabs ----------
+function switchTab(t){
+  document.querySelectorAll('nav.tabs button').forEach(b=>b.setAttribute('aria-selected',b.dataset.tab===t));
+  ['sched','gyms','log'].forEach(id=>document.getElementById(id).hidden=id!==t);
+}
+document.querySelectorAll('nav.tabs button').forEach(b=>b.onclick=()=>switchTab(b.dataset.tab));
+document.getElementById('dist').onchange=()=>renderSched(false);
+document.getElementById('favonly').onchange=()=>renderSched(false);
+document.getElementById('q').oninput=renderGyms;
+
+function renderAll(){applyZip();renderZip();renderSched();renderGyms();renderLog()}
+function renderZip(){
+  const msg=document.getElementById('zipmsg');const v=document.getElementById('zip').value.trim();
+  if(!v)msg.textContent='Enter your ZIP code to sort gyms by distance.';
+  else if(!/^\d{5}$/.test(v))msg.textContent='Enter a 5-digit ZIP code.';
+  else if(!ZIPS[v])msg.textContent='That ZIP code isn\u2019t in San Diego County.';
+  else msg.textContent='Straight-line distance from the middle of '+v+'.';
+}
+const zipEl=document.getElementById('zip');
+zipEl.value=state.zip;
+zipEl.oninput=()=>{const v=zipEl.value.replace(/\D/g,'').slice(0,5);if(v!==zipEl.value)zipEl.value=v;
+  const was=hasZip();state.zip=ZIPS[v]?v:'';save();
+  if(was!==hasZip()||hasZip())renderAll();else renderZip()};
+
+// ---------- data ----------
+function load(data){
+  GENERATED=data.generated;
+  GYMS=data.gyms.map(g=>{
+    const o={...g,pageUrl:PAGE+g.page};
+    if(g.days){o.days={};for(const k in g.days)o.days[k]=toArr(g.days[k])}
+    if(g.week){o.week={};for(const k in g.week)o.week[k]=toArr(g.week[k])}
+    return o;
+  });
+  document.getElementById('vgym').innerHTML=[...GYMS].sort((a,b)=>a.name.localeCompare(b.name)).map(g=>`<option value="${g.id}">${esc(g.name)}</option>`).join('');
+  document.getElementById('vsport').innerHTML=Object.entries(SP).map(([k,v])=>`<option value="${k}">${v.n}</option>`).join('');
+  const gen=new Date(GENERATED);
+  const ago=Math.round((Date.now()-gen)/86400000);
+  document.getElementById('updated').textContent=`Schedules were last read from the city’s website ${ago<=0?'today':ago===1?'yesterday':ago+' days ago'} (${MON[gen.getMonth()]} ${gen.getDate()}).`;
+  renderChips();renderAll();
+}
+fetch('schedules.json',{cache:'no-cache'}).then(r=>{if(!r.ok)throw new Error(r.status);return r.json()}).then(load).catch(()=>{
+  document.getElementById('tl').innerHTML='<div class="empty">The schedule data didn’t load. Refresh the page to try again.</div>';
+});
+setInterval(()=>{if(GYMS.length&&iso(selDate)===iso(today))renderSched(false)},60000);
+</script>
+</body>
+</html>
