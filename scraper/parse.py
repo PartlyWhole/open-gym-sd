@@ -487,13 +487,23 @@ def parse_grid(words, full_text, today):
         return merged
 
     def best_month(rows):
-        best = None
+        """Pick the month whose calendar matches the grid. Returns None when the flyer
+        doesn't name its month and more than one month fits equally well."""
+        # last date in the grid: if the month ends mid-week, its length must equal that date
+        last_row = rows[-1][1]
+        late = [(c, d) for c, d, _, _ in last_row if d >= 20]
+        last_day = max((d for _, d in late), default=None)
+        ends_midweek = bool(late) and max(late, key=lambda t: t[1])[0] < 6
+        cands = []
         for off in range(-4, 4):
             y0, m0 = today.year, today.month + off
             while m0 < 1:
                 m0 += 12; y0 -= 1
             while m0 > 12:
                 m0 -= 12; y0 += 1
+            length = calendar.monthrange(y0, m0)[1]
+            if last_day and (last_day > length or (ends_midweek and last_day != length)):
+                continue
             score = 0
             prev_m = (y0 - (m0 == 1), (m0 - 2) % 12 + 1)
             next_m = (y0 + (m0 == 12), m0 % 12 + 1)
@@ -508,10 +518,17 @@ def parse_grid(words, full_text, today):
                         except ValueError:
                             pass
             name_bonus = 3 if (m0, y0) in named else (2 if (m0, None) in named else 0)
-            cand = (score, name_bonus, -abs(off), y0, m0)
-            if best is None or cand > best:
-                best = cand
-        return best
+            cands.append((score, name_bonus, -abs(off), y0, m0))
+        if not cands:
+            return None
+        top = max(c[0] for c in cands)
+        tied = [c for c in cands if c[0] == top]
+        named_tied = [c for c in tied if c[1]]
+        if named_tied:
+            return max(named_tied)
+        if len(tied) > 1:
+            return None  # undated flyer that fits several months: don't guess
+        return tied[0]
 
     choice = None
     for shift in (0.35, 0.0, -0.35):
@@ -519,7 +536,10 @@ def parse_grid(words, full_text, today):
         if len(rows) < 3:
             continue
         total = sum(len(n) for _, n in rows)
-        score, bonus, near, y0, m0 = best_month(rows)
+        bm = best_month(rows)
+        if bm is None:
+            continue
+        score, bonus, near, y0, m0 = bm
         frac = score / total
         key = (frac >= 0.9, bonus, frac, near)
         if choice is None or key > choice[0]:
