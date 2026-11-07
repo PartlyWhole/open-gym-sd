@@ -1,5 +1,5 @@
 {
- "generated": "2026-11-06T11:58-08:00",
+ "generated": "2026-11-07T10:05-08:00",
  "gyms": [
   {
    "id": "doyle",
@@ -10,235 +10,20 @@
    "page": "doyle",
    "lat": 32.86477,
    "lon": -117.2216,
-   "kind": "dated",
-   "source": "https://www.sandiego.gov/sites/default/files/doyleopenplay.pdf",
-   "source_kind": "pdf",
-   "checked": "2026-11-06T11:58-08:00",
+   "kind": "weekly",
+   "source": "https://www.sandiego.gov/park-and-recreation/centers/recctr/doyle",
+   "source_kind": "page",
+   "checked": "2026-11-07T10:05-08:00",
    "status": "ok",
-   "days": {
-    "2026-10-30": [],
-    "2026-10-31": [
+   "week": {
+    "5": [
      {
-      "s": "bad",
-      "a": "09:00",
-      "b": "14:00"
-     }
-    ],
-    "2026-11-01": [],
-    "2026-11-02": [
-     {
-      "s": "bb",
-      "a": "11:50",
-      "b": "14:00"
-     },
-     {
-      "s": "vb",
-      "a": "16:30",
-      "b": "20:30"
-     }
-    ],
-    "2026-11-03": [
-     {
-      "s": "bb",
-      "a": "11:50",
-      "b": "14:00"
-     },
-     {
-      "s": "bb",
-      "a": "16:00",
-      "b": "17:30"
-     }
-    ],
-    "2026-11-04": [
-     {
-      "s": "bb",
-      "a": "15:30",
-      "b": "17:00"
-     }
-    ],
-    "2026-11-05": [
-     {
-      "s": "bb",
-      "a": "11:50",
-      "b": "14:00"
-     }
-    ],
-    "2026-11-06": [
-     {
-      "s": "bb",
-      "a": "15:30",
-      "b": "18:30"
-     }
-    ],
-    "2026-11-07": [
-     {
-      "s": "bad",
-      "a": "09:00",
-      "b": "14:30"
-     }
-    ],
-    "2026-11-08": [],
-    "2026-11-09": [
-     {
-      "s": "bb",
-      "a": "11:50",
-      "b": "14:00"
-     },
-     {
-      "s": "vb",
-      "a": "16:30",
-      "b": "20:30"
-     }
-    ],
-    "2026-11-10": [
-     {
-      "s": "bb",
-      "a": "11:50",
-      "b": "14:00"
-     },
-     {
-      "s": "bb",
-      "a": "16:00",
-      "b": "17:30"
-     }
-    ],
-    "2026-11-11": [
-     {
-      "s": "bb",
-      "a": "15:30",
-      "b": "17:00"
-     }
-    ],
-    "2026-11-12": [
-     {
-      "s": "bb",
-      "a": "11:50",
-      "b": "14:00"
-     }
-    ],
-    "2026-11-13": [
-     {
-      "s": "bb",
-      "a": "15:30",
-      "b": "18:30"
-     }
-    ],
-    "2026-11-14": [
-     {
-      "s": "bad",
-      "a": "09:00",
-      "b": "14:30"
-     }
-    ],
-    "2026-11-15": [],
-    "2026-11-16": [
-     {
-      "s": "bb",
-      "a": "11:50",
-      "b": "14:00"
-     },
-     {
-      "s": "vb",
-      "a": "16:30",
-      "b": "20:30"
-     }
-    ],
-    "2026-11-17": [
-     {
-      "s": "bb",
-      "a": "11:50",
-      "b": "14:00"
-     },
-     {
-      "s": "bb",
-      "a": "16:00",
-      "b": "17:30"
-     }
-    ],
-    "2026-11-18": [
-     {
-      "s": "bb",
-      "a": "15:30",
-      "b": "17:00"
-     }
-    ],
-    "2026-11-19": [],
-    "2026-11-20": [
-     {
-      "s": "bb",
-      "a": "15:30",
-      "b": "18:30"
-     }
-    ],
-    "2026-11-21": [
-     {
-      "s": "bad",
-      "a": "09:00",
-      "b": "14:30"
-     }
-    ],
-    "2026-11-22": [],
-    "2026-11-23": [
-     {
-      "s": "bb",
-      "a": "11:50",
-      "b": "14:00"
-     },
-     {
-      "s": "vb",
-      "a": "16:30",
-      "b": "20:30"
-     },
-     {
-      "s": "bb",
-      "a": "11:50",
-      "b": "14:00"
-     },
-     {
-      "s": "vb",
-      "a": "16:30",
-      "b": "20:30"
-     }
-    ],
-    "2026-11-24": [
-     {
-      "s": "bb",
-      "a": "11:50",
-      "b": "14:00"
-     },
-     {
-      "s": "bb",
-      "a": "16:00",
-      "b": "17:30"
-     }
-    ],
-    "2026-11-25": [
-     {
-      "s": "bb",
-      "a": "15:30",
-      "b": "17:00"
-     }
-    ],
-    "2026-11-26": [],
-    "2026-11-27": [
-     {
-      "s": "bb",
-      "a": "15:30",
-      "b": "18:30"
-     }
-    ],
-    "2026-11-28": [
-     {
-      "s": "bad",
-      "a": "09:00",
-      "b": "14:30"
+      "s": "open",
+      "a": "11:00",
+      "b": "13:00"
      }
     ]
-   },
-   "months": [
-    "2026-11"
-   ],
-   "covered_until": "2026-11-30"
+   }
   },
   {
    "id": "nobel",
@@ -252,21 +37,9 @@
    "kind": "dated",
    "source": "https://www.sandiego.gov/sites/default/files/nobelopenplay.pdf",
    "source_kind": "pdf",
-   "checked": "2026-11-06T11:58-08:00",
+   "checked": "2026-11-07T10:05-08:00",
    "status": "ok",
    "days": {
-    "2026-10-30": [
-     {
-      "s": "pb",
-      "a": "10:15",
-      "b": "14:20"
-     },
-     {
-      "s": "bb",
-      "a": "14:30",
-      "b": "16:45"
-     }
-    ],
     "2026-10-31": [
      {
       "s": "pb",
@@ -540,18 +313,7 @@
      }
     ],
     "2026-11-26": [],
-    "2026-11-27": [
-     {
-      "s": "pb",
-      "a": "10:15",
-      "b": "14:20"
-     },
-     {
-      "s": "bb",
-      "a": "14:30",
-      "b": "18:45"
-     }
-    ],
+    "2026-11-27": [],
     "2026-11-28": [
      {
       "s": "pb",
@@ -582,21 +344,9 @@
    "kind": "dated",
    "source": "https://www.sandiego.gov/sites/default/files/2025-03/standleygym.pdf",
    "source_kind": "pdf",
-   "checked": "2026-11-06T11:58-08:00",
+   "checked": "2026-11-07T10:05-08:00",
    "status": "ok",
    "days": {
-    "2026-10-30": [
-     {
-      "s": "pb",
-      "a": "09:00",
-      "b": "12:00"
-     },
-     {
-      "s": "bb",
-      "a": "12:00",
-      "b": "15:45"
-     }
-    ],
     "2026-10-31": [
      {
       "s": "bb",
@@ -895,7 +645,7 @@
    "kind": "weekly",
    "source": "https://www.sandiego.gov/park-and-recreation/centers/recctr/lajolla",
    "source_kind": "page",
-   "checked": "2026-11-06T11:58-08:00",
+   "checked": "2026-11-07T10:05-08:00",
    "status": "ok",
    "week": {
     "1": [
@@ -948,31 +698,9 @@
    "kind": "dated",
    "source": "https://www.sandiego.gov/park-and-recreation/centers/recctr/carmelvalley",
    "source_kind": "calendar",
-   "checked": "2026-11-06T11:58-08:00",
+   "checked": "2026-11-07T10:05-08:00",
    "status": "ok",
    "days": {
-    "2026-10-30": [
-     {
-      "s": "pb",
-      "a": "09:00",
-      "b": "11:45"
-     },
-     {
-      "s": "bb",
-      "a": "12:00",
-      "b": "13:45"
-     },
-     {
-      "s": "bb",
-      "a": "13:45",
-      "b": "15:45"
-     },
-     {
-      "s": "bad",
-      "a": "14:00",
-      "b": "15:45"
-     }
-    ],
     "2026-10-31": [
      {
       "s": "pb",
@@ -1275,9 +1003,10 @@
     "2027-01-01": [],
     "2027-01-02": [],
     "2027-01-03": [],
-    "2027-01-04": []
+    "2027-01-04": [],
+    "2027-01-05": []
    },
-   "covered_until": "2027-01-05"
+   "covered_until": "2027-01-06"
   },
   {
    "id": "pacificbeach",
@@ -1291,7 +1020,7 @@
    "kind": "weekly",
    "source": "https://www.sandiego.gov/sites/default/files/pacificbeachopenplay.pdf",
    "source_kind": "pdf",
-   "checked": "2026-11-06T11:58-08:00",
+   "checked": "2026-11-07T10:05-08:00",
    "status": "ok",
    "week": {
     "1": [
@@ -1381,10 +1110,9 @@
    "kind": "dated",
    "source": "https://www.sandiego.gov/sites/default/files/2024-07/northclairemontopenplay.pdf",
    "source_kind": "pdf",
-   "checked": "2026-11-06T11:58-08:00",
+   "checked": "2026-11-07T10:05-08:00",
    "status": "stale",
    "days": {
-    "2026-10-30": [],
     "2026-10-31": []
    },
    "months": [
@@ -1404,7 +1132,7 @@
    "kind": "weekly",
    "source": "https://www.sandiego.gov/sites/default/files/oceanairopenplaygym.pdf",
    "source_kind": "pdf",
-   "checked": "2026-11-06T11:58-08:00",
+   "checked": "2026-11-07T10:05-08:00",
    "status": "ok",
    "week": {
     "2": [
@@ -1482,18 +1210,6 @@
    "source": "https://www.sandiego.gov/sites/default/files/2024-02/miramesaopenplay.pdf",
    "source_kind": "pdf",
    "days": {
-    "2026-10-30": [
-     {
-      "s": "pb",
-      "a": "12:00",
-      "b": "15:00"
-     },
-     {
-      "s": "bb",
-      "a": "15:15",
-      "b": "18:30"
-     }
-    ],
     "2026-10-31": [
      {
       "s": "pb",
@@ -1528,7 +1244,7 @@
    "kind": "weekly",
    "source": "https://www.sandiego.gov/sites/default/files/hourglassopenplay.pdf",
    "source_kind": "pdf",
-   "checked": "2026-11-06T11:58-08:00",
+   "checked": "2026-11-07T10:05-08:00",
    "status": "ok",
    "week": {
     "0": [
@@ -1618,16 +1334,9 @@
    "kind": "dated",
    "source": "https://www.sandiego.gov/sites/default/files/2025-05/lindavistaopenplay.pdf",
    "source_kind": "pdf",
-   "checked": "2026-11-06T11:58-08:00",
+   "checked": "2026-11-07T10:05-08:00",
    "status": "stale",
    "days": {
-    "2026-10-30": [
-     {
-      "s": "bb",
-      "a": "10:00",
-      "b": "16:45"
-     }
-    ],
     "2026-10-31": [
      {
       "s": "bb",
@@ -1653,21 +1362,9 @@
    "kind": "dated",
    "source": "https://www.sandiego.gov/sites/default/files/pacifichighlandsopenplay.pdf",
    "source_kind": "pdf",
-   "checked": "2026-11-06T11:58-08:00",
+   "checked": "2026-11-07T10:05-08:00",
    "status": "ok",
    "days": {
-    "2026-10-30": [
-     {
-      "s": "bad",
-      "a": "09:00",
-      "b": "13:30"
-     },
-     {
-      "s": "vb",
-      "a": "14:00",
-      "b": "18:30"
-     }
-    ],
     "2026-10-31": [],
     "2026-11-01": [],
     "2026-11-02": [
@@ -2000,16 +1697,9 @@
    "kind": "dated",
    "source": "https://www.sandiego.gov/sites/default/files/serramesaopenplay.pdf",
    "source_kind": "pdf",
-   "checked": "2026-11-06T11:58-08:00",
+   "checked": "2026-11-07T10:05-08:00",
    "status": "ok",
    "days": {
-    "2026-10-30": [
-     {
-      "s": "bb",
-      "a": "12:15",
-      "b": "16:00"
-     }
-    ],
     "2026-10-31": [
      {
       "s": "bb",
@@ -2238,7 +1928,7 @@
    "kind": "weekly",
    "source": "https://www.sandiego.gov/sites/default/files/presidioopenplay.pdf",
    "source_kind": "pdf",
-   "checked": "2026-11-06T11:58-08:00",
+   "checked": "2026-11-07T10:05-08:00",
    "status": "ok",
    "week": {
     "1": [
@@ -2315,16 +2005,9 @@
    "kind": "dated",
    "source": "https://www.sandiego.gov/sites/default/files/alliedgardensopenplay.pdf",
    "source_kind": "pdf",
-   "checked": "2026-11-06T11:58-08:00",
+   "checked": "2026-11-07T10:05-08:00",
    "status": "ok",
    "days": {
-    "2026-10-30": [
-     {
-      "s": "bb",
-      "a": "14:00",
-      "b": "15:15"
-     }
-    ],
     "2026-10-31": [
      {
       "s": "bb",
@@ -2499,16 +2182,9 @@
    "kind": "dated",
    "source": "https://www.sandiego.gov/sites/default/files/blackmountainopenplay.pdf",
    "source_kind": "pdf",
-   "checked": "2026-11-06T11:58-08:00",
+   "checked": "2026-11-07T10:05-08:00",
    "status": "ok",
    "days": {
-    "2026-10-30": [
-     {
-      "s": "bad",
-      "a": "18:45",
-      "b": "20:45"
-     }
-    ],
     "2026-10-31": [
      {
       "s": "bb",
@@ -2630,16 +2306,9 @@
    "kind": "dated",
    "source": "https://www.sandiego.gov/sites/default/files/munigymopenplay.pdf",
    "source_kind": "pdf",
-   "checked": "2026-11-06T11:58-08:00",
+   "checked": "2026-11-07T10:05-08:00",
    "status": "stale",
    "days": {
-    "2026-10-30": [
-     {
-      "s": "bb",
-      "a": "11:30",
-      "b": "16:00"
-     }
-    ],
     "2026-10-31": [
      {
       "s": "bb",
@@ -2670,21 +2339,9 @@
    "kind": "dated",
    "source": "https://www.sandiego.gov/park-and-recreation/centers/recctr/tierrasanta",
    "source_kind": "calendar",
-   "checked": "2026-11-06T11:58-08:00",
+   "checked": "2026-11-07T10:05-08:00",
    "status": "ok",
    "days": {
-    "2026-10-30": [
-     {
-      "s": "bb",
-      "a": "14:00",
-      "b": "15:30"
-     },
-     {
-      "s": "vb",
-      "a": "14:00",
-      "b": "15:30"
-     }
-    ],
     "2026-10-31": [
      {
       "s": "open",
@@ -2845,9 +2502,10 @@
     "2027-01-01": [],
     "2027-01-02": [],
     "2027-01-03": [],
-    "2027-01-04": []
+    "2027-01-04": [],
+    "2027-01-05": []
    },
-   "covered_until": "2027-01-05"
+   "covered_until": "2027-01-06"
   },
   {
    "id": "scripps",
@@ -2861,21 +2519,9 @@
    "kind": "dated",
    "source": "https://www.sandiego.gov/park-and-recreation/centers/recctr/scripps",
    "source_kind": "calendar",
-   "checked": "2026-11-06T11:58-08:00",
+   "checked": "2026-11-07T10:05-08:00",
    "status": "ok",
    "days": {
-    "2026-10-30": [
-     {
-      "s": "bb",
-      "a": "14:00",
-      "b": "16:15"
-     },
-     {
-      "s": "pb",
-      "a": "16:30",
-      "b": "18:45"
-     }
-    ],
     "2026-10-31": [
      {
       "s": "bb",
@@ -3121,9 +2767,10 @@
     "2027-01-01": [],
     "2027-01-02": [],
     "2027-01-03": [],
-    "2027-01-04": []
+    "2027-01-04": [],
+    "2027-01-05": []
    },
-   "covered_until": "2027-01-05"
+   "covered_until": "2027-01-06"
   },
   {
    "id": "goldenhill",
@@ -3137,7 +2784,7 @@
    "kind": "weekly",
    "source": "https://www.sandiego.gov/sites/default/files/2024-04/goldenhillopenplay.pdf",
    "source_kind": "pdf",
-   "checked": "2026-11-06T11:58-08:00",
+   "checked": "2026-11-07T10:05-08:00",
    "status": "ok",
    "week": {
     "0": [
@@ -3201,7 +2848,7 @@
    "kind": "none",
    "source": "https://www.sandiego.gov/park-and-recreation/centers/recctr/midcity",
    "source_kind": "page",
-   "checked": "2026-11-06T11:58-08:00",
+   "checked": "2026-11-07T10:05-08:00",
    "status": "ok"
   },
   {
@@ -3216,21 +2863,9 @@
    "kind": "dated",
    "source": "https://www.sandiego.gov/park-and-recreation/centers/recctr/carmelsabre",
    "source_kind": "calendar",
-   "checked": "2026-11-06T11:58-08:00",
+   "checked": "2026-11-07T10:05-08:00",
    "status": "ok",
    "days": {
-    "2026-10-30": [
-     {
-      "s": "pb",
-      "a": "15:00",
-      "b": "17:00"
-     },
-     {
-      "s": "bb",
-      "a": "18:00",
-      "b": "18:55"
-     }
-    ],
     "2026-10-31": [
      {
       "s": "bb",
@@ -3582,9 +3217,10 @@
     "2027-01-01": [],
     "2027-01-02": [],
     "2027-01-03": [],
-    "2027-01-04": []
+    "2027-01-04": [],
+    "2027-01-05": []
    },
-   "covered_until": "2027-01-05"
+   "covered_until": "2027-01-06"
   },
   {
    "id": "encanto",
@@ -3598,7 +3234,7 @@
    "kind": "dated",
    "source": "https://www.sandiego.gov/sites/default/files/encantoopenplay.pdf",
    "source_kind": "pdf",
-   "checked": "2026-11-06T11:58-08:00",
+   "checked": "2026-11-07T10:05-08:00",
    "status": "stale",
    "days": {},
    "months": [
@@ -3618,7 +3254,7 @@
    "kind": "weekly",
    "source": "https://www.sandiego.gov/sites/default/files/2024-05/mlkopenplay.pdf",
    "source_kind": "pdf",
-   "checked": "2026-11-06T11:58-08:00",
+   "checked": "2026-11-07T10:05-08:00",
    "status": "ok",
    "week": {
     "0": [
@@ -3684,16 +3320,9 @@
    "kind": "dated",
    "source": "https://www.sandiego.gov/park-and-recreation/centers/recctr/rancho",
    "source_kind": "calendar",
-   "checked": "2026-11-06T11:58-08:00",
+   "checked": "2026-11-07T10:05-08:00",
    "status": "ok",
    "days": {
-    "2026-10-30": [
-     {
-      "s": "bb",
-      "a": "14:00",
-      "b": "15:00"
-     }
-    ],
     "2026-10-31": [],
     "2026-11-01": [],
     "2026-11-02": [
@@ -4134,9 +3763,22 @@
       "a": "14:00",
       "b": "16:00"
      }
+    ],
+    "2027-01-05": [
+     {
+      "s": "pb",
+      "a": "10:00",
+      "b": "12:00"
+     },
+     {
+      "s": "bb",
+      "a": "12:00",
+      "b": "14:30",
+      "l": "Adult"
+     }
     ]
    },
-   "covered_until": "2027-01-05"
+   "covered_until": "2027-01-06"
   },
   {
    "id": "southbay",
@@ -4150,7 +3792,7 @@
    "kind": "weekly",
    "source": "https://www.sandiego.gov/park-and-recreation/centers/recctr/southbay",
    "source_kind": "page",
-   "checked": "2026-11-06T11:58-08:00",
+   "checked": "2026-11-07T10:05-08:00",
    "status": "ok",
    "week": {
     "0": [
@@ -4226,7 +3868,7 @@
    "kind": "weekly",
    "source": "https://www.sandiego.gov/park-and-recreation/centers/recctr/montgomery",
    "source_kind": "page",
-   "checked": "2026-11-06T11:58-08:00",
+   "checked": "2026-11-07T10:05-08:00",
    "status": "ok",
    "week": {
     "0": [
